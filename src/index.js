@@ -1,21 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import App from './App';
 import { StytchProvider } from '@stytch/react';
 import { StytchUIClient } from '@stytch/vanilla-js';
-import App from './App';
+import TokenAuthenticator from './components/TokenAuthenticator';
 
-import './index.css';
+// We initialize the Stytch client using our project's public token which can be found in the Stytch dashboard
+const stytch = new StytchUIClient(process.env.REACT_APP_STYTCH_PUBLIC_TOKEN);
 
-const stytch = new StytchUIClient(
-  'public-token-test-49f607c3-8c98-4779-8592-16393e21855e'
-);
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
 root.render(
-  <StytchProvider stytch={stytch}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </StytchProvider>,
-  document.getElementById('root')
+  <React.StrictMode>
+    {/* StytchProvider gives our app access to the Stytch client */}
+    <StytchProvider stytch={stytch}>
+      <TokenAuthenticator>
+        <App />
+      </TokenAuthenticator>
+    </StytchProvider>
+  </React.StrictMode>
 );

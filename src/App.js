@@ -1,20 +1,13 @@
-import Login from './components/Login/Login';
-import './App.css';
+import { useStytchUser } from '@stytch/react';
+import Login from './components/Login';
+// import Profile from './components/Profile';
+import Dashboard from './pages/Dashboard';
 
-function App() {
-  return (
-    <div className='App'>
-      <header className=''></header>
-      <h1>Welcome to the Stytch login</h1>
-      <Login />
-      <a
-        href='https://test.stytch.com/v1/public/oauth/google/start?public_token=public-token-test-49f607c3-8c98-4779-8592-16393e21855e'
-        target='_blank'
-        rel='noopener noreferrer'>
-        LOGIN
-      </a>
-    </div>
-  );
-}
+const App = () => {
+  // The useStytchUser hook will return the existing Stytch User object if one exists
+  const { user } = useStytchUser();
+  // If there is a user show the profile, otherwise show the login form
+  return <div className='container'>{user ? <Dashboard /> : <Login />}</div>;
+};
 
 export default App;
